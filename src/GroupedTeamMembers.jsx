@@ -1,7 +1,9 @@
-import {useState} from 'react';
+import { useState, useContext } from 'react';
+import DataContext from './context/DataContext';
 
-const GroupedTeamMembers = ({employees, selectedTeam, setTeam}) => {
-	const [groupedEmployees, setGroupedData] = useState(groupTeamMembers());
+const GroupedTeamMembers = () => {
+  const { employees, selectedTeam, setTeam } = useContext(DataContext);
+  const [groupedEmployees, setGroupedData] = useState(groupTeamMembers());
 
   function groupTeamMembers() {
     var teams = [];
@@ -32,15 +34,15 @@ const GroupedTeamMembers = ({employees, selectedTeam, setTeam}) => {
     setGroupedData(transformedGroupData);
     setTeam(event.currentTarget.id);
   }
-	
-return (
+
+  return (
     <main className="container">
       {
         groupedEmployees.map((item) => {
           return (
             <div key={item.team} className='card mt-2' style={{ cursor: "pointer" }}>
               <h4 id={item.team} className="card-header text-secondary bg-white" onClick={handleTeamClick}>
-                Team Name: {item.team} ({item.members.length} {item.members.length === 1?"member":"members"})
+                Team Name: {item.team} ({item.members.length} {item.members.length === 1 ? "member" : "members"})
               </h4>
               <div id={"collapse_" + item.team}
                 className={item.collapsed === true ? "collapse" : ""}>
@@ -48,7 +50,7 @@ return (
                 {
                   item.members.map(member => {
                     return (
-                      <div className="mt-2">
+                      <div key={member.id} className="mt-2">
                         <h5 className="card-title mt-2">
                           <span className="text-dark">Full Name: {member.fullName}</span>
                         </h5>
