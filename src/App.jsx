@@ -12,7 +12,7 @@ function App() {
 
   return (
     <DataProvider>
-      <Router>
+      <Router basename="/team-members-react">
         <Nav />
         <Header />
         <Routes>
